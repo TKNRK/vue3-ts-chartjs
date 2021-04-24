@@ -1,5 +1,7 @@
 # chartjs-sample
 
+> https://tknrk.github.io/vue3-ts-chartjs/
+
 ## Project setup
 ```
 npm install
