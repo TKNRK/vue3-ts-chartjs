@@ -33,7 +33,7 @@
     "typescript": "~4.1.5"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,json,vue,md}": [
+    "**/*.{js,ts,tsx,json,vue,md}": [
       "prettier --write"
     ]
   },
