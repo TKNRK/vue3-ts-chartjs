@@ -1,87 +1,58 @@
 <template>
-  <canvas id="lineChartExample" height="768" width="1024">
-  </canvas>
+  <canvas id="myChart" height="284" width="512" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
-import { Chart, ChartData, ChartOptions } from "chart.js";
+import { defineComponent, onMounted } from "@vue/runtime-core";
+import { Chart, registerables } from "chart.js";
+Chart.register(...registerables);
 
 export default defineComponent({
   name: "LineChart",
   setup(){
     const DATA_COUNT = 7;
-    const NUMBER_CFG = {count: DATA_COUNT, max: 100};
+    const MAX_NUMBER = 50;
 
+    // -MAX_NUMBER ~ MAX_NUMBER の値を持つ、要素数 DATA_COUNT 個の配列を生成する
     const genRandomValues = () => {
       const arr = [];
-      for (let i=0; i < NUMBER_CFG.count; i++) {
+      for (let i=0; i < DATA_COUNT; i++) {
         const sign = Math.random() < 0.5 ? 1 : -1;
-        arr.push(sign * Math.random() * NUMBER_CFG.max);
+        arr.push(sign * Math.random() * MAX_NUMBER);
       }
       return arr;
     };
 
-    const labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-    const data: ChartData = {
+    const labels = ['January','February','March','April','May','June'];
+    const data = {
       labels: labels,
-      datasets: [
-        {
-          label: 'Dataset 1',
-          data: genRandomValues(),
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          yAxisID: 'y',
-        },
-        {
-          label: 'Dataset 2',
-          data: genRandomValues(),
-          borderColor: 'rgb(54, 162, 235)',
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          yAxisID: 'y1',
-        }
-      ]
-    };
-
-    const options: ChartOptions = {
-        responsive: true,
-        interaction: {
-          mode: 'index',
-          intersect: false,
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Chart.js Line Chart - Multi Axis'
-          }
-        },
-        scales: {
-          y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-          },
-          y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-
-            // grid line settings
-            grid: {
-              drawOnChartArea: false, // only want the grid lines for one axis to show up
-            },
-          },
-        }
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: genRandomValues(),
+      }]
     };
 
     // show chart
-    const canvas = <HTMLCanvasElement> document.getElementById('lineChartExample');
-    const ctx = canvas.getContext('2d');
-    new Chart(ctx!, {
-      type: "line",
-      data: data,
-      options: options,
+    const showChart = () => {
+      const canvasRef = document.getElementById('myChart') as HTMLCanvasElement;
+      if (canvasRef === null) return
+      const canvas = canvasRef.getContext('2d');
+      if (canvas === null) return;
+      const myChart = new Chart(canvas, {
+        type: 'line',
+        data,
+        options: {},
+      });
+      console.debug(myChart);
+    }
+
+    onMounted(() => {
+      showChart();
     });
+
+    return {}
   }
 });
 </script>
