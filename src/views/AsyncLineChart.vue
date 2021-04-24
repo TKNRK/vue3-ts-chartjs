@@ -35,7 +35,7 @@ interface StateIF {
 }
 
 export default defineComponent({
-  name: "RandomLineChart",
+  name: "AsyncLineChart",
   components: {
     LineChart,
   },

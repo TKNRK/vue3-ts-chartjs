@@ -1,9 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import Home from "../views/Home.vue";
 import SimpleLineChart from "../views/SimpleLineChart.vue";
-import RandomLineChart from "../views/RandomLineChart.vue";
-import MultiAxisLineChart from "../views/MultiAxisLineChart.vue";
+import AsyncLineChart from "../views/AsyncLineChart.vue";
+import TemperatureAndHumidityChart from "../views/TemperatureAndHumidityChart.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    name: Home.name,
+    component: Home
+  },
   {
     path: '/line-chart',
     name: SimpleLineChart.name,
@@ -11,13 +17,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/line-chart/random',
-    name: RandomLineChart.name,
-    component: RandomLineChart
+    name: AsyncLineChart.name,
+    component: AsyncLineChart
   },
   {
     path: '/line-chart/multi-axis',
-    name: MultiAxisLineChart.name,
-    component: MultiAxisLineChart
+    name: TemperatureAndHumidityChart.name,
+    component: TemperatureAndHumidityChart
   },
 ];
 
