@@ -1,8 +1,8 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/pane">Pane</router-link>
+    <router-link to="/line-chart">LineChart</router-link> |
+    <router-link to="/line-chart/random">LineChart(Random)</router-link> |
+    <router-link to="/line-chart/multi-axis">MultiAxisLineChart</router-link>
   </div>
   <router-view />
 </template>

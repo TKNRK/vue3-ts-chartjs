@@ -1,58 +1,81 @@
 <template>
-  <canvas id="myChart" height="284" width="512" />
+  <canvas id="myLineChart"
+      v-bind:height="canvasSize.height"
+      v-bind:width="canvasSize.width" />
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "@vue/runtime-core";
+import { defineComponent, onMounted, PropType, reactive, watch } from "@vue/runtime-core";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 export default defineComponent({
   name: "LineChart",
-  setup(){
-    const DATA_COUNT = 7;
-    const MAX_NUMBER = 50;
+  props: {
+    desc: {
+      type: String,
+      default: "unspecified",
+      required: true,
+    },
+    labels: {
+      type: Array as PropType<string[]>,
+      default: () => [],
+      required: true,
+    },
+    data: {
+      type: Array as PropType<number[]>,
+      default: () => [],
+      required: true,
+    },
+    height: {
+      type: Number,
+      default: 284,
+    },
+    width: {
+      type: Number,
+      default: 512,
+    },
+  },
+  setup(props){
+    const canvasSize = reactive({
+      height: props.height,
+      width: props.width
+    });
 
-    // -MAX_NUMBER ~ MAX_NUMBER の値を持つ、要素数 DATA_COUNT 個の配列を生成する
-    const genRandomValues = () => {
-      const arr = [];
-      for (let i=0; i < DATA_COUNT; i++) {
-        const sign = Math.random() < 0.5 ? 1 : -1;
-        arr.push(sign * Math.random() * MAX_NUMBER);
-      }
-      return arr;
-    };
-
-    const labels = ['January','February','March','April','May','June'];
     const data = {
-      labels: labels,
+      labels: props.labels,
       datasets: [{
-        label: 'My First dataset',
+        label: props.desc,
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: genRandomValues(),
+        data: props.data,
       }]
     };
 
-    // show chart
-    const showChart = () => {
-      const canvasRef = document.getElementById('myChart') as HTMLCanvasElement;
-      if (canvasRef === null) return
-      const canvas = canvasRef.getContext('2d');
-      if (canvas === null) return;
-      const myChart = new Chart(canvas, {
-        type: 'line',
-        data,
-        options: {},
-      });
-      console.debug(myChart);
-    }
+    let myChart: Chart<"line", number[], string>;
 
     onMounted(() => {
-      showChart();
+      if (!myChart) {
+        const canvasRef = document.getElementById('myLineChart') as HTMLCanvasElement;
+        if (canvasRef === null) return
+        const canvas = canvasRef.getContext('2d');
+        if (canvas === null) return;
+        myChart = new Chart(canvas, {
+          type: 'line',
+          data,
+          options: {},
+        });
+      }
     });
 
-    return {}
+    watch(() => props.data, (first) => {
+      data.datasets[0].data = first;
+      myChart.update();
+    });
+
+    return {
+      canvasSize,
+    }
   }
 });
 </script>
