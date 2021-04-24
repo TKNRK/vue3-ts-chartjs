@@ -1,29 +1,29 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
+import SimpleLineChart from "../views/SimpleLineChart.vue";
+import AsyncLineChart from "../views/AsyncLineChart.vue";
+import TemperatureAndHumidityChart from "../views/TemperatureAndHumidityChart.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
-    name: "Home",
-    component: Home,
+    path: '/',
+    name: Home.name,
+    component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    path: '/line-chart',
+    name: SimpleLineChart.name,
+    component: SimpleLineChart
   },
   {
-    path: "/pane",
-    name: "Pane",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Pane.vue"),
+    path: '/line-chart/random',
+    name: AsyncLineChart.name,
+    component: AsyncLineChart
+  },
+  {
+    path: '/line-chart/multi-axis',
+    name: TemperatureAndHumidityChart.name,
+    component: TemperatureAndHumidityChart
   },
 ];
 
