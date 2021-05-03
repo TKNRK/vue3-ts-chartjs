@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 import SimpleLineChart from "../views/SimpleLineChart.vue";
+import SampleTimeLineChart from "../views/SampleTimeLineChart.vue";
 import AsyncLineChart from "../views/AsyncLineChart.vue";
 import TemperatureAndHumidityChart from "../views/TemperatureAndHumidityChart.vue";
 import ThreeStyleLineChart from "../views/ThreeStyleLineChart.vue";
@@ -20,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/line-chart/random',
     name: AsyncLineChart.name,
     component: AsyncLineChart
+  },
+  {
+    path: '/line-chart/time',
+    name: SampleTimeLineChart.name,
+    component: SampleTimeLineChart
   },
   {
     path: '/line-chart/multi-axis',
