@@ -2,6 +2,7 @@
   <div id="nav">
     <router-link to="/line-chart">LineChart</router-link> |
     <router-link to="/line-chart/random">LineChart(Random)</router-link> |
+    <router-link to="/line-chart/time">TimeLineChart</router-link> |
     <router-link to="/line-chart/multi-axis">MultiAxisLineChart</router-link> |
     <router-link to="/line-chart/styled">StyledLineChart</router-link>
   </div>
